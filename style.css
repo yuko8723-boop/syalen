@@ -5,13 +5,15 @@ html {
 
 body {
   margin: 0;
+  /* ★フォントをサイト全体で統一 */
+  font-family: 'Poppins', "Helvetica Neue", Arial, "Hiragino Kaku Gothic ProN", sans-serif;
 }
 
 a {
   text-decoration: none;
 }
 
-/* --- プロ仕様：Flexboxによるヘッダー構造の最適化 --- */
+/* --- Flexboxによるヘッダー構造の最適化 --- */
 header {
   height: 70px;
   width: 100%;
@@ -61,6 +63,11 @@ header a {
 
 header a:hover {
   opacity: 0.6;
+}
+
+/* --- PC版：ハンバーガーメニューは隠す --- */
+.hamburger {
+  display: none;
 }
 
 /* --- メインビジュアル --- */
@@ -125,19 +132,30 @@ header a:hover {
   box-sizing: border-box;
 }
 
+/* 画像を包む枠（親要素）の設定：はみ出た画像を隠す */
+.service-box {
+  width: 22%; 
+  box-sizing: border-box;
+  overflow: hidden; /* ★枠からはみ出た画像を非表示にする（レイアウト崩れ防止） */
+}
+
 .service-box img {
   width: 100%;
-  transition: .5s;
   aspect-ratio: 1 / 1;
   object-fit: cover;
+  display: block;
+  /* ★変化の速度（0.4秒かけて、滑らかなイージングで動かす） */
+  transition: transform 0.4s ease, opacity 0.4s ease; 
 }
 
 .img-3 {
   object-position: 0% 30%;
 }
 
-.service-box img:hover {
-  opacity: 0.7;
+/* ★ホバー時の動きの演出 */
+.service-box:hover img {
+  transform: scale(1.15); /* 画像を15%拡大（1.15倍） */
+  opacity: 0.85;          /* ほんの少しだけ明るく（または薄く）して触った感を強調 */
 }
 
 .service-box h3,
@@ -199,11 +217,19 @@ header a:hover {
 
 .product-main-image {
   width: 55%;
+  overflow: hidden; /* ★枠からはみ出た画像を表示させない */
 }
 
 .product-main-image img {
   width: 100%;
   display: block;
+  /* ★0.5秒かけて滑らかに変化させる設定（メイン画像は少しゆったり動かすと高級感が出ます） */
+  transition: transform 0.5s ease;
+}
+
+/* ★ホバー時に中身の画像だけを5%拡大（大きめの画像なので5%の控えめな拡大が上品です） */
+.product-main-image:hover img {
+  transform: scale(1.05);
 }
 
 .product-info {
@@ -239,11 +265,19 @@ header a:hover {
   background: #f7f7f7;
   padding: 10px;
   box-sizing: border-box;
+  overflow: hidden; /* ★枠からはみ出た画像を表示させない */
 }
 
 .thumb-item img {
   width: 100%;
   display: block;
+  /* ★0.3秒かけて小気味よく変化させる設定 */
+  transition: transform 0.3s ease;
+}
+
+/* ★ホバー時に中身の画像だけを10%拡大 */
+.thumb-item:hover img {
+  transform: scale(1.1);
 }
 
 .product-text p {
@@ -428,13 +462,12 @@ header a:hover {
   opacity: 1;               
 }
 
-/* --- 実践的フッターのスタイル（企業サイト標準版） --- */
+/* --- 実践的フッターのスタイル --- */
 footer {
-  background: #fcfcfc;          /* サイト性白背景と差別化するごく薄いグレー */
-  border-top: 1px solid #eee;  /* 上部にうっすらと区切り線を入れる */
+  background: #fcfcfc;          
+  border-top: 1px solid #eee;  
   padding: 80px 0 40px;
   width: 100%;
-  font-family: 'Poppins', "Helvetica Neue", Arial, "Hiragino Kaku Gothic ProN", sans-serif;
 }
 
 .footer-inner {
@@ -443,19 +476,17 @@ footer {
   padding: 0 40px;
   box-sizing: border-box;
   display: flex;
-  justify-content: space-between; /* 4つのブロックを均等に左右に広げて並べる */
+  justify-content: space-between; 
   align-items: flex-start;
   flex-wrap: wrap;
   gap: 40px;
 }
 
-/* フッター内の各ブロック共通設定 */
 .footer-block {
   flex: 1;
-  min-width: 200px; /* 画面が狭くなっても崩れないように最低幅を確保 */
+  min-width: 200px; 
 }
 
-/* 1. 会社情報・連絡先ブロック */
 .footer-about h3 {
   font-size: 24px;
   letter-spacing: 0.08em;
@@ -482,7 +513,6 @@ footer {
   color: #222;
 }
 
-/* 2, 3, 4. メニューブロックの見出し */
 .footer-block h4 {
   font-size: 14px;
   font-weight: 600;
@@ -490,10 +520,9 @@ footer {
   color: #222;
   margin: 0 0 20px 0;
   padding-bottom: 8px;
-  border-bottom: 1px solid #ddd; /* 見出しの下に薄い線を引いて読みやすく */
+  border-bottom: 1px solid #ddd; 
 }
 
-/* メニューのリンク一覧 */
 .footer-block ul {
   margin: 0;
   padding: 0;
@@ -512,26 +541,23 @@ footer {
   display: inline-block;
 }
 
-/* マウスを乗せたときに少し右に動いて色が変わる、プロっぽい演出 */
 .footer-block a:hover {
   color: #000;
   padding-left: 4px;
 }
 
-/* フッター下部：ポリシー ＆ コピーライトエリア */
 .footer-bottom {
   max-width: 1400px;
   margin: 60px auto 0;
   padding: 30px 40px 0;
-  border-top: 1px solid #f0f0f0; /* 横いっぱいの区切り線 */
+  border-top: 1px solid #f0f0f0; 
   display: flex;
-  justify-content: space-between; /* ポリシーリンクと著作権を左右に分ける */
+  justify-content: space-between; 
   align-items: center;
   flex-wrap: wrap;
   gap: 20px;
 }
 
-/* プライバシーポリシーなどのリンク群 */
 .footer-utility a {
   color: #888;
   font-size: 11px;
@@ -555,77 +581,75 @@ footer {
 @media screen and (max-width: 768px) {
 
   /* --- 1. ヘッダーのレスポンシブ化 --- */
+  header {
+    height: 70px; /* 高さをPCと合わせて固定 */
+    padding: 0;
+  }
+
+  .header-inner {
+    flex-direction: row; /* ★縦並びから横並びに戻して左右に配置 */
+    justify-content: space-between;
+    height: 100%;
+    padding: 0 20px;
+  }
+
+  /* ハンバーガーボタンを表示・右側配置 */
   .hamburger {
-  display: none; /* PCでは非表示 */
-  cursor: pointer;
-  width: 30px;
-  height: 25px;
-  position: relative;
-  z-index: 1000;
-}
+    display: block;
+    cursor: pointer;
+    width: 30px;
+    height: 25px;
+    position: relative;
+    z-index: 1000;
+  }
 
-.hamburger span {
-  display: block;
-  width: 100%;
-  height: 2px;
-  background: #333;
-  position: absolute;
-  transition: 0.3s;
-}
+  .hamburger span {
+    display: block;
+    width: 100%;
+    height: 2px;
+    background: #333;
+    position: absolute;
+    transition: 0.3s;
+  }
 
-.hamburger span:nth-child(1) { top: 0; }
-.hamburger span:nth-child(2) { top: 50%; transform: translateY(-50%); }
-.hamburger span:nth-child(3) { bottom: 0; }
+  .hamburger span:nth-child(1) { top: 0; }
+  .hamburger span:nth-child(2) { top: 50%; transform: translateY(-50%); }
+  .hamburger span:nth-child(3) { bottom: 0; }
 
-/* メニューを開いた時のボタン変形 */
-.hamburger.is-active span:nth-child(1) { transform: translateY(12px) rotate(-45deg); }
-.hamburger.is-active span:nth-child(2) { opacity: 0; }
-.hamburger.is-active span:nth-child(3) { transform: translateY(-12px) rotate(45deg); }
+  /* メニューを開いた時のボタン変形 */
+  .hamburger.is-active span:nth-child(1) { transform: translateY(11px) rotate(-45deg); }
+  .hamburger.is-active span:nth-child(2) { opacity: 0; }
+  .hamburger.is-active span:nth-child(3) { transform: translateY(-12px) rotate(45deg); }
 
-/* スマホ時のメニュー表示エリア */
-@media screen and (max-width: 768px) {
-  .hamburger { display: block; }
-
-  .nav-menu {
-    display: none; /* 初期は非表示 */
+  /* スマホ時のメニュー（ナビゲーション）の初期状態を非表示に */
+  #js-nav {
+    display: none;
     position: fixed;
     top: 0;
     left: 0;
     width: 100%;
     height: 100vh;
     background: #fff;
-    padding-top: 80px;
+    padding-top: 100px;
+    z-index: 999;
   }
-  
-  .nav-menu.is-active { display: block; }
-  
-  .nav-menu ul {
+
+  /* メニューが開いた時 */
+  #js-nav.is-active {
+    display: block;
+  }
+
+  /* ナビの中身を縦並び・中央に整列 */
+  #js-nav ul {
     flex-direction: column;
     align-items: center;
     gap: 30px;
   }
-}
-
-  header {
-    height: auto; 
-    padding: 15px 0;
-  }
-
-  .header-inner {
-    flex-direction: column; 
-    gap: 15px;
-    padding: 0 20px;
-  }
-
-  header ul {
-    flex-wrap: wrap; 
-    justify-content: center;
-    gap: 5px;
-  }
-
-  header a {
-    padding: 5px 10px;
-    font-size: 12px; 
+  
+  /* ★フォントをPC版と統一（継承） */
+  #js-nav a {
+    font-family: inherit;
+    font-size: 18px;
   }
 
   /* --- 2. メインビジュアルの調整 --- */
@@ -653,13 +677,24 @@ footer {
     padding: 0;
   }
 
-  /* --- 4. PRODUCTセクションの調整（横並び → 縦並びに変更） --- */
+  /* --- 4. PRODUCTセクションの調整 --- */
   .product-section {
     padding: 60px 15px 0;
   }
 
+  /* ★タイトル横の説明文を一段下げる設定 */
+  .product-heading {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 4px;
+  }
+
   .product-heading h2 {
     font-size: 32px;
+  }
+
+  .product-heading p {
+    margin-top: 0;
   }
 
   .product-content {
@@ -692,8 +727,19 @@ footer {
     padding: 0 15px;
   }
 
+  /* ★タイトル横の説明文を一段下げる設定 */
+  .gallery-showcase__heading {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 4px;
+  }
+
   .gallery-showcase__heading h2 {
     font-size: 32px;
+  }
+
+  .gallery-showcase__heading p {
+    margin-top: 0;
   }
 
   .gallery-showcase__info h3 {
@@ -744,89 +790,4 @@ footer {
     align-items: flex-start;
     gap: 15px;
   }
-  /* --- PC版：ハンバーガーメニューは隠す --- */
-.hamburger {
-  display: none;
-}
-
-@media screen and (max-width: 768px) {
-  /* ハンバーガーを表示 */
-  .hamburger {
-    display: block;
-    cursor: pointer;
-    width: 30px;
-    height: 25px;
-    position: relative;
-    z-index: 1000;
-  }
-  /* (中略：spanなどのデザイン設定はそのまま) */
-
-  /* ナビゲーションを隠す */
-  header nav {
-    display: none;
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100vh;
-    background: #fff;
-    padding-top: 100px;
-  }
-
-  /* メニューが開いた時 */
-  header nav.is-active {
-    display: block;
-  }
-
-  /* ナビの中身を整列 */
-  header nav ul {
-    flex-direction: column;
-    align-items: center;
-    gap: 30px;
-  }
-  
-  /* フォントを継承 */
-  header nav a {
-    font-family: 'Poppins', sans-serif;
-    font-size: 18px;
-  }
-}
-/* --- ヘッダー配置の修正 --- */
-.header-inner {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    position: relative;
-}
-
-/* メディアクエリ内 */
-@media screen and (max-width: 768px) {
-    .hamburger {
-        display: block;
-        order: 2; /* ボタンを右側に */
-    }
-
-    /* ナビゲーションの初期状態を非表示に */
-    #js-nav {
-        display: none;
-        position: fixed;
-        top: 0;
-        left: 0;
-        width: 100%;
-        height: 100vh;
-        background: #fff;
-        padding-top: 100px;
-        z-index: 999;
-    }
-
-    #js-nav.is-active {
-        display: block;
-    }
-
-    #js-nav ul {
-        flex-direction: column;
-        align-items: center;
-        gap: 30px;
-    }
-}
 }
