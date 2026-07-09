@@ -115,13 +115,36 @@ header a:hover {
   box-sizing: border-box;
 }
 
-.service-wrap>h3 {
-  font-size: 40px;
-  padding: 120px 0 40px; /* 固定ヘッダーの裏に隠れるのを防ぐためスクロール用の余白調整 */
-  text-align: center;
+/* ★ 見出しエリア：PRODUCTやGALLERYと同じFlexbox横並び構造にする */
+.item-heading {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  padding: 120px 0 40px; /* 固定ヘッダー分の余白 */
+}
+
+/* ★ 各セクション（ITEMS, PRODUCT, GALLERY）の見出しデザインを一括でスマートに指定 */
+.item-heading h2,
+.product-heading h2,
+.gallery-showcase__heading h2 {
+  font-size: 48px;
+  font-weight: 500;       /* 繊細な細さに統一 */
+  letter-spacing: 0.08em; /* 文字間隔を統一 */
+  color: #222;
   margin: 0;
 }
 
+/* ★ 各セクションの見出し横の「小さな説明文」のデザインも一括指定 */
+.item-heading p,
+.product-heading p,
+.gallery-showcase__heading p {
+  font-size: 14px;
+  color: #666;
+  margin: 0;
+  margin-top: 10px;
+}
+
+/* ★ 横並びのコンテナ設定 */
 .service-container {
   display: flex;
   justify-content: space-between;
@@ -136,7 +159,6 @@ header a:hover {
 .service-box {
   width: 22%; 
   box-sizing: border-box;
-  overflow: hidden; /* ★枠からはみ出た画像を非表示にする（レイアウト崩れ防止） */
 }
 
 .service-box img {
@@ -154,7 +176,7 @@ header a:hover {
 
 /* ★ホバー時の動きの演出 */
 .service-box:hover img {
-  transform: scale(1.15); /* 画像を15%拡大（1.15倍） */
+  transform: scale(1.05); /* 画像を5%拡大（1.05倍） */
   opacity: 0.85;          /* ほんの少しだけ明るく（または薄く）して触った感を強調 */
 }
 
@@ -277,7 +299,7 @@ header a:hover {
 
 /* ★ホバー時に中身の画像だけを10%拡大 */
 .thumb-item:hover img {
-  transform: scale(1.1);
+  transform: scale(1.05);
 }
 
 .product-text p {
@@ -657,16 +679,40 @@ footer {
     height: 500px; 
   }
 
-  /* --- 3. ITEMSセクションの調整（4列 → 2列並びに変更） --- */
+/* --- ITEMSセクションの調整 --- */
   .service-wrap {
     padding: 0 15px;
   }
   
-  .service-wrap>h3 {
-    font-size: 30px;
+  /* スマホ時は見出し上の余白を少し縮小 */
+  .item-heading {
     padding: 60px 0 20px;
   }
 
+  /* ★ スマホ時に「見出し」と「説明文」を縦並び（一段下げる）にする命令を一括指定！ */
+  .item-heading,
+  .product-heading,
+  .gallery-showcase__heading {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 4px;
+  }
+
+  /* ★ スマホ時の見出しサイズ（32px）を一括指定！ */
+  .item-heading h2,
+  .product-heading h2,
+  .gallery-showcase__heading h2 {
+    font-size: 32px;
+  }
+
+  /* ★ スマホ時の説明文の余白調整を一括指定！ */
+  .item-heading p,
+  .product-heading p,
+  .gallery-showcase__heading p {
+    margin-top: 0;
+  }
+
+  /* 横並びを折り返す設定 */
   .service-container {
     flex-wrap: wrap; 
     gap: 30px 4%;   
